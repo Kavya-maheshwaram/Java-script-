@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Article Boxes</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #f9f9f9;
+    }
+
+    .container {
+      display: flex;
+      gap: 15px;
+    }
+
+    article {
+      border: 2px solid #333;
+      width: 300px;
+      height: 300px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 10px;
+      transition: background 0.3s ease;
+    }
+
+    .content {
+  border: 1px solid #000;
+  height: 100px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+    }
+
+    button {
+      padding: 5px 10px;
+      border: none;
+      background: #333;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <article>
+      <div class="content">
+        <img src="https://cdn-icons-png.flaticon.com/128/1828/1828884.png" alt="star" style="width:40px;height:40px;display:block;margin:0 auto;">
+        <span class="dynamic-text" style="font-size:18px;display:block;margin-top:8px;">Starred</span>
+      </div>
+      <button>Change</button>
+    </article>
+    <article>
+      <div class="content">
+        <img src="https://cdn-icons-png.flaticon.com/128/1828/1828919.png" alt="heart" style="width:40px;height:40px;display:block;margin:0 auto;">
+        <span class="dynamic-text" style="font-size:18px;display:block;margin-top:8px;">Favorite</span>
+      </div>
+      <button>Change</button>
+    </article>
+    <article>
+      <div class="content">
+        <img src="https://cdn-icons-png.flaticon.com/128/1828/1828961.png" alt="check" style="width:40px;height:40px;display:block;margin:0 auto;">
+        <span class="dynamic-text" style="font-size:18px;display:block;margin-top:8px;">Success</span>
+      </div>
+      <button>Change</button>
+    </article>
+    <article>
+      <div class="content">
+        <img src="https://cdn-icons-png.flaticon.com/128/1828/1828843.png" alt="alert" style="width:40px;height:40px;display:block;margin:0 auto;">
+        <span class="dynamic-text" style="font-size:18px;display:block;margin-top:8px;">Alert</span>
+      </div>
+      <button>Change</button>
+    </article>
+  </div>
+
+  <script>
+    const buttons = document.querySelectorAll("article button");
+
+    const textOptions = [
+      ["YOU", "IF BEAUTY", "MY ", "YOU ARE", "WORLD"],
+      ["MAKE", "EXITS", "HEART", "THE BEST THING ", "IS BEAUTIFUL"],
+      ["ME", "ITS", "BEATS", "THAT HAPPENED", "BECAUSE YOU ARE"],
+      ["HAPPY", "YOU", "FOR YOU", "TO ME", "WITH ME"]
+    ];
+
+    buttons.forEach((button, idx) => {
+      button.addEventListener("click", () => {
+        const parentArticle = button.parentElement;
+        // Generate a random light color every time the button is pressed
+        function getLightColor() {
+          const r = Math.floor(200 + Math.random() * 56); // 200-255
+          const g = Math.floor(200 + Math.random() * 56); // 200-255
+          const b = Math.floor(200 + Math.random() * 56); // 200-255
+          return `rgb(${r}, ${g}, ${b})`;
+        }
+        const lightColor = getLightColor();
+        parentArticle.style.background = lightColor;
+        // Change the text in the upper box
+        const textSpan = parentArticle.querySelector(".dynamic-text");
+        if (textSpan) {
+          const options = textOptions[idx % textOptions.length];
+          const randomText = options[Math.floor(Math.random() * options.length)];
+          textSpan.textContent = randomText;
+        }
+      });
+    });
+  </script>
+</body>
+</html>
